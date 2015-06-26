@@ -19,25 +19,28 @@ def make_dir(direc):
     cmd = "mkdir " + direc
     print cmd
 
+    os.system(cmd)
+
     for c in xrange(len(cams)):
         cmd = "mkdir " + direc + "cam" + str(c) + "/"
         print cmd
+        os.system(cmd)
 
 
 def snap(filename="test.jpg", direc="./"):
     global cams
     cmd = "raspistill -o " + direc + filename
-    #os.system(cmd)
+    os.system(cmd)
     print cmd
 
     for c in xrange(len(cams)):
         _dir = direc + "cam" + str(c) + "/"
         cmd = "---Camera : " + _dir + filename + ".jpg---"
         print cmd
-        #cams[c].start()
-        #img = cams[c].get_image()
-        #cams[c].stop()
-        #pygame.image.save(img, _dir+filename+".jpg")
+        cams[c].start()
+        img = cams[c].get_image()
+        cams[c].stop()
+        pygame.image.save(img, _dir+filename+".jpg")
 
 def check_for_webcams():
     pygame.camera.init()
